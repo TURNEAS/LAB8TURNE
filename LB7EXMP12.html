@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Example 12 - Custom Base Map</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXR1cm5lIiwiYSI6ImNtN3c2dzhmdjAyaDQyam9lcHZndXQzOGYifQ.U54u7RnEjwr5J8Bu7mwCEA';
+
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/aturne/cm9k4c7th00nm01rc4s3qbtvt',
+    center: [-104.99, 39.74],
+    zoom: 11
+  });
+
+  map.on('load', () => {
+    map.addSource('tree-points', {
+      type: 'vector',
+      url: 'mapbox://aturne.4k83tzqi'
+    });
+
+    map.addLayer({
+      id: 'tree-layer',
+      type: 'circle',
+      source: 'tree-points',
+      'source-layer': 'denver_tree_top_10_genus-8pmsrp', // Updated layer name
+      paint: {
+        'circle-radius': 3,
+        'circle-color': '#32CD32',
+        'circle-opacity': 0.75
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
